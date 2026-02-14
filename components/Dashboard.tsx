@@ -13,6 +13,7 @@ import AIInsightsLab from './views/AIInsightsLab'
 import SystemAnalytics from './views/SystemAnalytics'
 import Settings from './views/Settings'
 import SystemConnectivity from './SystemConnectivity'
+import NotificationCenter from './NotificationCenter'
 
 export type ThemeMode = 'dark' | 'eco'
 
@@ -20,6 +21,7 @@ export default function Dashboard() {
   const [activeView, setActiveView] = useState('command')
   const [theme, setTheme] = useState<ThemeMode>('dark')
   const [showConnectivity, setShowConnectivity] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
 
   // Scroll to top when view changes
   const handleViewChange = (view: string) => {
@@ -49,6 +51,7 @@ export default function Dashboard() {
         theme={theme} 
         onThemeToggle={() => setTheme(theme === 'dark' ? 'eco' : 'dark')}
         onConnectivityOpen={() => setShowConnectivity(true)}
+        onNotificationOpen={() => setShowNotifications(true)}
       />
       <div className="flex">
         <Sidebar activeView={activeView} onViewChange={handleViewChange} theme={theme} />
@@ -61,6 +64,12 @@ export default function Dashboard() {
         theme={theme} 
         isOpen={showConnectivity} 
         onClose={() => setShowConnectivity(false)} 
+      />
+
+      <NotificationCenter
+        theme={theme}
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
       />
       
       {/* Footer */}

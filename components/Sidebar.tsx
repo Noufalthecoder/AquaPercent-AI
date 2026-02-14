@@ -2,6 +2,7 @@
 
 import { ThemeMode } from './Dashboard'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface SidebarProps {
   activeView: string
@@ -23,6 +24,7 @@ const allMenuItems = [
 
 export default function Sidebar({ activeView, onViewChange, theme }: SidebarProps) {
   const { user } = useAuth()
+  const { t } = useLanguage()
   
   // Filter menu items based on user role
   const menuItems = user 
@@ -47,7 +49,7 @@ export default function Sidebar({ activeView, onViewChange, theme }: SidebarProp
             }`}
           >
             <span className="text-xl">{item.icon}</span>
-            <span className="text-sm font-medium">{item.label}</span>
+            <span className="text-sm font-medium">{t(`menu.${item.id}`)}</span>
           </button>
         ))}
       </nav>

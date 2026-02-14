@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface IntroPageProps {
   onEnter: () => void
@@ -89,6 +90,7 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
   const [leaksPrevented, setLeaksPrevented] = useState(0)
   const [accuracy, setAccuracy] = useState(0)
   const { user } = useAuth()
+  const { t } = useLanguage()
 
   useEffect(() => {
     const timer1 = setTimeout(() => setAnimationStage(1), 100)
@@ -228,12 +230,12 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
 
           {/* Title */}
           <h1 className="text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            AquaPercent AI
+            {t('app.title')}
           </h1>
           
           {/* Tagline */}
           <p className="text-2xl text-gray-400 mb-12">
-            Predicting Water. Preventing Crisis.
+            {t('app.tagline')}
           </p>
 
           {/* Quick Stats */}
@@ -301,7 +303,7 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
             transition={{ delay: 2.5, duration: 1 }}
             className="mt-20"
           >
-            <div className="text-gray-500 text-sm mb-4 uppercase tracking-wider">Scroll to explore</div>
+            <div className="text-gray-500 text-sm mb-4 uppercase tracking-wider">{t('scroll.explore') || 'Scroll to explore'}</div>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -399,7 +401,7 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
               transition={{ delay: 0.3 }}
               className="glass-dark rounded-2xl px-10 py-6 border border-white/10 mb-12 inline-block"
             >
-              <div className="text-sm text-gray-400 mb-2">Welcome back,</div>
+              <div className="text-sm text-gray-400 mb-2">{t('welcome.back')},</div>
               <div className="text-3xl font-bold text-white mb-1">{user.fullName}</div>
               <div className="text-cyan-400 font-mono text-sm">{user.role.toUpperCase()}</div>
             </motion.div>
@@ -413,10 +415,10 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
             transition={{ delay: 0.5 }}
           >
             <h2 className="text-6xl font-bold text-white mb-6">
-              Ready to Begin?
+              {t('ready.begin') || 'Ready to Begin?'}
             </h2>
             <p className="text-xl text-gray-400 mb-12">
-              All 8 modules are loaded and ready for your command
+              {t('modules.ready') || 'All 8 modules are loaded and ready for your command'}
             </p>
           </motion.div>
 
@@ -432,7 +434,7 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
             className="relative group px-16 py-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xl font-bold rounded-2xl transition-all duration-300 overflow-hidden shadow-2xl shadow-cyan-500/50"
           >
             <span className="relative z-10 flex items-center gap-3">
-              ENTER COMMAND CENTER
+              {t('launch.dashboard').toUpperCase()}
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
@@ -449,7 +451,7 @@ export default function IntroPage({ onEnter }: IntroPageProps) {
             className="mt-12 flex items-center justify-center gap-3 text-sm text-gray-500"
           >
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span>ALL SYSTEMS OPERATIONAL</span>
+            <span>{t('all.systems.online').toUpperCase()}</span>
           </motion.div>
         </motion.div>
       </section>

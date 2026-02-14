@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
+import LanguageSelector from '@/components/LanguageSelector'
 import type { UserRole } from '@/contexts/AuthContext'
 
 export default function LoginPage() {
@@ -19,6 +21,7 @@ export default function LoginPage() {
   const [mouseY, setMouseY] = useState(0)
   
   const { login, isAuthenticated } = useAuth()
+  const { t } = useLanguage()
   const router = useRouter()
 
   useEffect(() => {
@@ -69,6 +72,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex">
+      {/* Language Selector - Top Right */}
+      <div className="fixed top-6 right-6 z-50">
+        <LanguageSelector />
+      </div>
+
       {/* Animated Water Infrastructure Ecosystem - Left Side */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         {/* Deep space background */}
@@ -314,10 +322,10 @@ export default function LoginPage() {
               <div className="absolute -inset-8 bg-cyan-400/10 rounded-full blur-2xl"></div>
             </div>
             <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-              AquaPercent AI
+              {t('app.title')}
             </h1>
             <div className="h-1 w-32 mx-auto bg-gradient-to-r from-cyan-400 to-transparent mb-2"></div>
-            <p className="text-gray-400 text-sm">Secure Infrastructure Access</p>
+            <p className="text-gray-400 text-sm">{t('secure.access') || 'Secure Infrastructure Access'}</p>
           </div>
 
           {/* Login Panel */}
@@ -345,32 +353,32 @@ export default function LoginPage() {
 
             <div className="relative z-10">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-1">Access Portal</h2>
-                <p className="text-cyan-400 text-xs font-mono uppercase tracking-wider">Authorized Personnel Only</p>
+                <h2 className="text-2xl font-bold text-white mb-1">{t('login.title')}</h2>
+                <p className="text-cyan-400 text-xs font-mono uppercase tracking-wider">{t('login.subtitle')}</p>
               </div>
 
               <form onSubmit={handleLogin} className="space-y-5">
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">User ID</label>
+                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">{t('user.id')}</label>
                   <input 
                     type="text" 
                     value={username} 
                     onChange={(e) => setUsername(e.target.value)} 
                     className="w-full bg-gray-900/50 border border-cyan-500/20 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder-gray-600" 
-                    placeholder="Enter user identification" 
+                    placeholder={t('user.id.placeholder') || 'Enter user identification'} 
                     required 
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Password</label>
+                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">{t('password')}</label>
                   <div className="relative">
                     <input 
                       type={showPassword ? 'text' : 'password'} 
                       value={password} 
                       onChange={(e) => setPassword(e.target.value)} 
                       className="w-full bg-gray-900/50 border border-cyan-500/20 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all pr-12 placeholder-gray-600" 
-                      placeholder="Enter secure password" 
+                      placeholder={t('password.placeholder') || 'Enter secure password'} 
                       required 
                     />
                     <button 
@@ -384,7 +392,7 @@ export default function LoginPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Access Role</label>
+                  <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">{t('access.role')}</label>
                   <select 
                     value={role} 
                     onChange={(e) => setRole(e.target.value as UserRole)} 
@@ -403,13 +411,13 @@ export default function LoginPage() {
                   disabled={isAuthenticating} 
                   className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3.5 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/30 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group mt-6"
                 >
-                  <span className="relative z-10 text-sm uppercase tracking-wider">Authenticate Access</span>
+                  <span className="relative z-10 text-sm uppercase tracking-wider">{t('authenticate')}</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                 </button>
               </form>
 
               <div className="mt-6 p-3 bg-gray-900/30 rounded-lg border border-gray-800">
-                <p className="text-xs text-gray-500 mb-2 font-semibold">Demo Credentials:</p>
+                <p className="text-xs text-gray-500 mb-2 font-semibold">{t('demo.credentials')}</p>
                 <div className="text-xs text-gray-600 space-y-0.5 font-mono">
                   <div>admin/admin123 • engineer/eng123 • policy/policy123</div>
                   <div>farmer/farm123 • citizen/citizen123</div>
@@ -420,7 +428,7 @@ export default function LoginPage() {
 
           <div className="mt-8 flex items-center justify-center gap-2 text-xs">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-gray-500 uppercase tracking-wider">Secure Connection Active</span>
+            <span className="text-gray-500 uppercase tracking-wider">{t('secure.connection')}</span>
           </div>
         </div>
       </div>
