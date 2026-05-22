@@ -305,6 +305,8 @@ A future where communities do not suffer because infrastructure failures were de
 # 👨‍💻 Team
 
 Impact Minds
+1)Mohammed Noufal-hardware and backend ,API integration
+2)Tarunika Balaji-Frontend and Model Design
 
 Building intelligent systems for sustainable futures.
 
